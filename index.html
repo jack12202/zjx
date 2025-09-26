@@ -1107,7 +1107,7 @@ body.theme-ink .sticky-note{ border-top-color: rgba(255,255,255,.14) !important;
 </div>
 <div class="cost-notice-item">
 <span class="cost-notice-label">💬 人工微信：</span>
-<strong id="wechatId">mmzi0723</strong>
+<strong id="wechatId">zjx17818700585</strong>
 <button class="copy-inline" onclick="copyText('wechatId')">复制</button>
 </div>
 </div>
@@ -1174,7 +1174,7 @@ body.theme-ink .sticky-note{ border-top-color: rgba(255,255,255,.14) !important;
 <button aria-label="关闭" id="csClose">✕</button>
 </div>
 <div class="cs-body">
-<p>微信：<b id="wx">mmzi0723</b>
+<p>微信：<b id="wx">zjx17818700585</b>
 <button class="copy" onclick="copyText('wx')">复制</button></p>
 <div class="qq-toggle">
 <button class="qq-toggle-btn" id="qqToggle">微信联系不上时，请联系QQ</button>
@@ -1253,7 +1253,7 @@ body.theme-ink .sticky-note{ border-top-color: rgba(255,255,255,.14) !important;
     });
   </script>
 <div class="sticky-note" id="bottomNote">
-<span class="note-text">📌 当前价 <strong>¥188</strong> ｜ <strong>加微信立减 ¥8</strong> ｜ 客服微信：<strong id="wxid">mmzi0723</strong></span>
+<span class="note-text">📌 当前价 <strong>¥188</strong> ｜ <strong>加微信立减 ¥8</strong> ｜ 客服微信：<strong id="wxid">zjx17818700585</strong></span>
   <button class="cta-mini" id="copyWeChat">复制微信</button>
   <button class="cta-outline" id="openWhyFooter">为什么不是更便宜</button>
   <a data-open="rechargeGuide" style="opacity:.75;text-decoration:underline;margin-left:.5rem;">
@@ -1271,7 +1271,7 @@ body.theme-ink .sticky-note{ border-top-color: rgba(255,255,255,.14) !important;
       return Promise.resolve();
     }
   }
-  var wx = (document.getElementById('wxid') && document.getElementById('wxid').textContent) || 'mmzi0723';
+  var wx = (document.getElementById('wxid') && document.getElementById('wxid').textContent) || 'zjx17818700585';
   var b1 = document.getElementById('copyWeChat');
   var b2 = document.getElementById('modalCopyWeChat');
   if(b1){ b1.addEventListener('click', function(){ copy(wx).then(function(){ b1.textContent='已复制'; setTimeout(function(){ b1.textContent='复制微信'; },1600) }) }); }
@@ -1354,7 +1354,7 @@ body.theme-ink .sticky-note{ border-top-color: rgba(255,255,255,.14) !important;
       return navigator.clipboard.writeText(text);
     } else { alert('微信号：'+text+'\\n请手动复制'); return Promise.resolve(); }
   }
-  var wechat = (document.getElementById('wxid') && document.getElementById('wxid').textContent) || (document.getElementById('helpWx') && document.getElementById('helpWx').textContent) || 'mmzi0723';
+  var wechat = (document.getElementById('wxid') && document.getElementById('wxid').textContent) || (document.getElementById('helpWx') && document.getElementById('helpWx').textContent) || 'zjx17818700585';
   var copyBtns = [ document.getElementById('copyWeChat'), document.getElementById('copyWeChatHelp') ].filter(Boolean);
   copyBtns.forEach(function(btn){
     btn.addEventListener('click', function(){
@@ -1394,7 +1394,7 @@ body.theme-ink .sticky-note{ border-top-color: rgba(255,255,255,.14) !important;
       <a class="open-proof-link" id="openOfficialProof">查看官方通知 / 展开说明</a>
       <div class="modal-footer">
         <a href="#" class="cta-outline" id="modalBuyP">去购买</a>
-        <button class="cta-mini" id="modalCopyWxP">复制微信：<span class="wx">mmzi0723</span></button>
+        <button class="cta-mini" id="modalCopyWxP">复制微信：<span class="wx">zjx17818700585</span></button>
       </div>
     </section>
 
@@ -1407,16 +1407,16 @@ body.theme-ink .sticky-note{ border-top-color: rgba(255,255,255,.14) !important;
       <p class="hint">提示：若遇到账延迟，请先勿重复下单，联系人工处理。</p>
       <div class="modal-footer">
         <a href="#" class="cta-outline" id="modalBuyF">去购买</a>
-        <button class="cta-mini" id="modalCopyWxF">复制微信：<span class="wx">mmzi0723</span></button>
+        <button class="cta-mini" id="modalCopyWxF">复制微信：<span class="wx">zjx17818700585</span></button>
       </div>
     </section>
 
     <section id="tab-support" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-support" hidden>
-      <p>微信：<strong class="wx">mmzi0723</strong></p>
+      <p>微信：<strong class="wx">zjx17818700585</strong></p>
       <p class="hint">人工在线：9:00–24:00（其他时段尽量回复）</p>
       <div class="modal-footer">
         <a href="#" class="cta-outline" id="modalBuyS">去购买</a>
-        <button class="cta-mini" id="modalCopyWxS">复制微信：<span class="wx">mmzi0723</span></button>
+        <button class="cta-mini" id="modalCopyWxS">复制微信：<span class="wx">zjx17818700585</span></button>
       </div>
     </section>
   </div>
@@ -1478,7 +1478,7 @@ body.theme-ink .sticky-note{ border-top-color: rgba(255,255,255,.14) !important;
     <!-- 结尾 CTA -->
     <section class="proof-sec">
       <div class="proof-actions">
-        <button class="proof-btn proof-btn-ghost" id="proofCopyWx">复制微信：<span class="wx">mmzi0723</span></button>
+        <button class="proof-btn proof-btn-ghost" id="proofCopyWx">复制微信：<span class="wx">zjx17818700585</span></button>
         <a class="proof-btn proof-btn-primary" id="proofGoBuy" href="#" rel="noopener">去购买</a>
       </div>
     </section>
@@ -1501,7 +1501,7 @@ body.theme-ink .sticky-note{ border-top-color: rgba(255,255,255,.14) !important;
   var closeBtn = $('#whyClose');
   var tabBtns = $all('.help-tabs .tab-btn');
   var panels = { price: $('#tab-price'), flow: $('#tab-flow'), support: $('#tab-support') };
-  var wxEl = $('#wxid'); var wx = wxEl ? (wxEl.textContent || 'mmzi0723') : 'mmzi0723';
+  var wxEl = $('#wxid'); var wx = wxEl ? (wxEl.textContent || 'zjx17818700585') : 'zjx17818700585';
   var lastFocus = null;
   var FOCUSABLE = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
 
@@ -1697,7 +1697,7 @@ body.theme-ink .sticky-note{ border-top-color: rgba(255,255,255,.14) !important;
 
   // 若页面已有微信号节点 #wxid，则读取；否则用按钮里的文本
   var wxNode = document.getElementById('wxid');
-  var WX = (wxNode && (wxNode.textContent||'').trim()) || (copyWx ? (copyWx.textContent.match(/[\w-]+$/)||['mmzi0723'])[0] : 'mmzi0723');
+  var WX = (wxNode && (wxNode.textContent||'').trim()) || (copyWx ? (copyWx.textContent.match(/[\w-]+$/)||['zjx17818700585'])[0] : 'zjx17818700585');
 
   function openProof(){
     lastFocus = document.activeElement;
