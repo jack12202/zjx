@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>GPT Plus 资讯中心 - 账号安全与风险分析</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <style>
+    :root {
+      --bg: #0b1220;
+      --surface: #111a2e;
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --text-strong: #f8fbff;
+      --text-muted: rgba(248,251,255,.78);
+      --radius: 18px;
+    }
+    /* 强制应用深色背景 */
+    html { background-color: var(--bg) !important; }
+    * {
+      box-sizing: border-box;
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    }
+    body {
+      margin: 0 !important;
+      min-height: 100vh;
+      padding: 0 20px 60px !important;
+      background:
+        radial-gradient(400px 240px at 20% 10%, rgba(59,130,246,.15), transparent 60%),
+        radial-gradient(360px 220px at 80% 20%, rgba(96,165,250,.12), transparent 65%),
+        var(--bg) !important;
+      color: var(--text-strong) !important;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .layout {
+      width: min(960px, 100%);
+      margin-top: 48px;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 20px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: transform .2s ease, box-shadow .2s ease;
+      box-shadow: 0 12px 28px rgba(37,99,235,.25);
+    }
+    .back-btn:hover { transform: translateY(-2px); }
+    .back-btn:active { transform: translateY(0); }
+    .list {
+      background: rgba(17,26,46,.85);
+      border-radius: var(--radius);
+      padding: clamp(18px, 4vw, 32px);
+      border: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(12px);
+      /* 🔥 关键修复：强制垂直堆叠 */
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 16px !important;
+    }
+    .article {
+      /* 关键修复：确保链接卡片本身垂直 */
+      display: flex !important;
+      flex-direction: column !important;
+      padding: clamp(14px, 3vw, 22px);
+      border-radius: calc(var(--radius) - 4px);
+      text-decoration: none;
+      color: var(--text-strong);
+      font-size: clamp(1.05rem, 4.5vw, 1.25rem);
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      transition: background .2s ease, transform .2s ease;
+    }
+    .article + .article {
+      margin-top: 0; 
+    }
+    .article span {
+      display: inline-block;
+      opacity: .75;
+      font-size: .9em;
+      margin-top: 6px;
+      color: var(--text-muted);
+    }
+    .article:hover {
+      background: rgba(59,130,246,.12);
+      transform: translateX(6px);
+    }
+    @media (max-width: 540px) {
+      body { padding: 0 16px 40px; }
+      header { margin-bottom: 24px; }
+      .back-btn {
+        width: 100%;
+        justify-content: center;
+      }
+      .article {
+        padding: 18px;
+        font-size: 1.15rem;
+      }
+    }
+  </style>
+</head>
+<body style="background-color: #0b1220; color: #f8fbff;">
+  <div class="layout">
+    <header>
+      <div class="logo">GPT Plus 资讯中心</div>
+      <a class="back-btn" href="/">返回首页</a>
+    </header>
+
+    <section class="list" aria-label="文章列表">
+              <a class="article" href="/blog/upgrade-guide-safe.html">
+        必看：避免账号被封，GPT Plus 安全升级的三个关键点
+        <span>深度解析低价代充和黑卡风险，保障您的账号安全。</span>
+      </a>
+              <a class="article" href="#">
+        2025年 GPT Plus 充值失败的解决办法
+        <span>深度排查网络、支付与账号风控的最新策略</span>
+      </a>
+      <a class="article" href="#">
+        如何使用 GPT-5 提高工作效率？
+        <span>覆盖自动化流程、知识管理与团队协作场景</span>
+      </a>
+      <a class="article" href="#">
+        关于账号封禁的官方最新说明
+        <span>最新风控规则、合规建议与申诉链路</span>
+      </a>
+    </section>
+  </div>
+</body>
+</html>
