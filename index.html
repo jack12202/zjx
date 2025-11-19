@@ -306,33 +306,4 @@ var _hmt = _hmt || [];
 <div class="sticky-note" id="bottomNote">
   <span class="note-text">📌 当前价 <strong>¥188</strong> ｜ 客服微信：<strong id="wxid">Jiage01888</strong></span>
   <button class="cta-mini" id="copyWeChat">复制微信</button>
-  <button class="cta-outline" id="openWhyFooter">为什么不是更便宜</button>
-  <a data-open="rechargeGuide" style="opacity:.75;text-decoration:underline;margin-left:.5rem;display:none;">
-    已购买·去激活
-  </a>
-</div>
-<script>
-// 复制微信 + 弹窗逻辑
-(function(){
-  function copy(text){
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      return navigator.clipboard.writeText(text);
-    } else {
-      alert('微信号：'+text+'\n请长按复制');
-      return Promise.resolve();
-    }
-  }
-  var wx = (document.getElementById('wxid') && document.getElementById('wxid').textContent) || 'Jiage01888';
-  var b1 = document.getElementById('copyWeChat');
-  var b2 = document.getElementById('modalCopyWeChat');
-  if(b1){ b1.addEventListener('click', function(){ copy(wx).then(function(){ b1.textContent='已复制'; setTimeout(function(){ b1.textContent='复制微信'; },1600) }) }); }
-  if(b2){ b2.addEventListener('click', function(){ copy(wx).then(function(){ b2.textContent='已复制'; setTimeout(function(){ b2.textContent='复制微信：'+wx; },1600) }) }); }
-  var openBtn = document.getElementById('openPriceModal');
-  var modal = document.getElementById('priceModal');
-  var closeBtn = document.getElementById('closePriceModal');
-  if(openBtn && modal){
-    openBtn.addEventListener('click', function(){ modal.classList.add('show'); modal.setAttribute('aria-hidden','false'); });
-  }
-  if(closeBtn && modal){
-    closeBtn.addEventListener('click', function(){ modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); });
-    modal.addEventListener('click', function(e){ if(e.target===modal){ modal.classList.
+  <button class="cta-outline" id="openWhyFooter">为什么不是更便宜
