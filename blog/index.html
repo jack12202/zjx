@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>GPT Plus 资讯中心 - 最终诊断</title>
+    <style>
+        /* 终极背景修复 */
+        html, body {
+            background-color: #0b1220 !important; 
+            color: #f8fbff !important;
+            padding: 0 !important;
+            min-height: 100vh;
+            font-family: sans-serif;
+        }
+        /* 布局修复：强制垂直卡片 */
+        .list {
+            background: #111a2e; /* 纯色背景 */
+            border-radius: 18px;
+            padding: 32px;
+            margin: 48px auto;
+            max-width: 800px;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 16px;
+        }
+        .article {
+            display: flex !important;
+            flex-direction: column;
+            padding: 18px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #f8fbff;
+            background: rgba(59,130,246,.12); /* 简单的蓝色底色 */
+            font-weight: 600;
+        }
+        .article span { font-size: 0.9em; opacity: 0.75; margin-top: 4px; }
+        .back-btn {
+            display: block;
+            margin: 20px auto;
+            width: 200px;
+            padding: 10px;
+            background: #3b82f6;
+            border-radius: 99px;
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+</head>
+<body style="background-color: #0b1220; color: #f8fbff;">
+    <a class="back-btn" href="/">返回首页</a>
+    <section class="list" aria-label="文章列表">
+        <a class="article" href="/blog/upgrade-guide-safe.html">
+            必看：避免账号被封，GPT Plus 安全升级的三个关键点
+            <span>✅ 深度解析低价代充和黑卡风险，保障您的账号安全。</span>
+        </a>
+        <a class="article" href="#">
+            2025年 GPT Plus 充值失败的解决办法
+            <span>❌ 深度排查网络、支付与账号风控的最新策略</span>
+        </a>
+    </section>
+</body>
+</html>
