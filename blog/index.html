@@ -14,21 +14,23 @@
       --text-muted: rgba(248,251,255,.78);
       --radius: 18px;
     }
+    /* 强制应用深色背景和文本颜色 */
+    html {
+        background-color: var(--bg) !important;
+    }
     * {
       box-sizing: border-box;
       font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
     }
-    /* 强制应用深色背景和文本颜色 */
-    html, body {
-        margin: 0 !important;
-        padding: 0 !important;
-        background-color: var(--bg) !important;
-        color: var(--text-strong) !important;
-        min-height: 100vh !important;
-        line-height: 1.6;
-    }
     body {
-      padding: 0 20px 60px !important; /* 恢复底部填充 */
+      margin: 0 !important;
+      min-height: 100vh;
+      padding: 0 20px 60px !important;
+      background:
+        radial-gradient(400px 240px at 20% 10%, rgba(59,130,246,.15), transparent 60%),
+        radial-gradient(360px 220px at 80% 20%, rgba(96,165,250,.12), transparent 65%),
+        var(--bg) !important; /* 强制背景 */
+      color: var(--text-strong) !important; /* 强制文字颜色 */
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -72,10 +74,10 @@
       padding: clamp(18px, 4vw, 32px);
       border: 1px solid rgba(255,255,255,.08);
       backdrop-filter: blur(12px);
-      /* 🔥 解决排版问题的关键：强制元素垂直堆叠 */
+      /* 🔥 关键修复：强制垂直堆叠和间距 */
       display: flex;
       flex-direction: column;
-      gap: 16px; 
+      gap: 16px;
     }
     .article {
       display: block;
@@ -89,7 +91,7 @@
       transition: background .2s ease, transform .2s ease;
     }
     .article + .article {
-      margin-top: 0; /* 在 flex 布局下不再需要这个，用 gap 代替 */
+      margin-top: 0; 
     }
     .article span {
       display: inline-block;
