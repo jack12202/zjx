@@ -47,7 +47,6 @@
       color: #fff;
     }
     
-    /* 弹窗打开时禁止滚动 */
     body.modal-open { overflow: hidden; }
 
     /* 卡片主体 */
@@ -60,7 +59,6 @@
       border: 1px solid rgba(255,255,255,.35);
       position: relative;
       overflow: hidden;
-      /* 确保卡片在小屏幕上不贴边 */
       margin: 20px;
     }
 
@@ -81,8 +79,8 @@
     .price-val { font-size: 2.4rem; font-weight: 900; line-height: 1; }
     .price-tag { font-size: 0.8rem; font-weight: 600; padding: 4px 10px; border-radius: 99px; background: rgba(233,196,106,.16); border: 1px solid var(--surface-glass); }
 
-    /* 按钮组 */
-    .button-group { display: flex; gap: 12px; margin: 22px 0 16px; }
+    /* 第一组按钮：购买/充值 */
+    .button-group { display: flex; gap: 12px; margin: 22px 0 12px; }
     .btn-buy {
       flex: 1.2; padding: 18px 0; font-size: 1.12rem; font-weight: 800; color: #fff;
       background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 100%);
@@ -101,41 +99,51 @@
     .btn-recharge:hover { background: rgba(255,255,255,.15); }
 
     /* ========================================= */
-    /* 修改点 1：醒目的“为什么不是更便宜”按钮样式 */
+    /* 新增样式：第二组按钮（人工客服 & 价格说明） */
     /* ========================================= */
-    .btn-why-wrapper {
-        text-align: center;
-        margin-top: 12px;
-        margin-bottom: 20px;
+    .secondary-actions {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
     }
-    #openWhyTop {
-      display: inline-flex;
+    .btn-soft {
+      flex: 1;
+      padding: 10px 0;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 10px 24px;
-      color: #fcd34d; /* 亮金色 */
-      background: rgba(252, 211, 77, 0.1);
-      border: 1px solid rgba(252, 211, 77, 0.4);
-      border-radius: 99px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      text-decoration: none;
       transition: all 0.2s;
-      cursor: pointer;
+      border: 1px solid transparent;
     }
-    #openWhyTop:hover {
-        background: rgba(252, 211, 77, 0.2);
-        transform: scale(1.02);
-        box-shadow: 0 4px 12px rgba(252, 211, 77, 0.15);
+    
+    /* 绿色客服按钮 */
+    .btn-soft-green {
+      background: rgba(16, 185, 129, 0.15); /* 微信绿背景 */
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.3);
     }
-    /* 闪烁动画，增加吸引力 */
-    @keyframes pulse-gold {
-        0% { box-shadow: 0 0 0 0 rgba(252, 211, 77, 0.4); }
-        70% { box-shadow: 0 0 0 6px rgba(252, 211, 77, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(252, 211, 77, 0); }
+    .btn-soft-green:hover {
+      background: rgba(16, 185, 129, 0.25);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
     }
-    #openWhyTop { animation: pulse-gold 3s infinite; }
+
+    /* 金色说明按钮 */
+    .btn-soft-gold {
+      background: rgba(252, 211, 77, 0.12); /* 金色背景 */
+      color: #fcd34d;
+      border-color: rgba(252, 211, 77, 0.3);
+    }
+    .btn-soft-gold:hover {
+      background: rgba(252, 211, 77, 0.22);
+      transform: translateY(-1px);
+    }
 
 
     /* 说明列表 */
@@ -151,9 +159,7 @@
     }
     .footer-link:hover { color: #fff; border-color: #fff; }
 
-    /* ========================================= */
-    /* 修改点 2：底部悬浮客服条 Sticky Footer */
-    /* ========================================= */
+    /* 底部悬浮客服条 Sticky Footer */
     .sticky-footer {
         position: fixed;
         bottom: 0; left: 0; right: 0;
@@ -272,10 +278,10 @@
       background: transparent; border: 1px solid rgba(255,255,255,0.4); color: #fff;
     }
 
-    /* 移动端适配 */
     @media (max-width: 480px) {
       .card-header { padding: 40px 24px 24px; }
       .button-group { flex-direction: column; }
+      .secondary-actions { gap: 8px; }
       .sf-text { font-size: 0.85rem; }
       .sf-btn { padding: 6px 12px; font-size: 0.85rem; }
     }
@@ -308,8 +314,13 @@
       <button class="btn-recharge" id="rechargeBtn">💳 进入自动充值系统</button>
     </div>
 
-    <div class="btn-why-wrapper">
-        <a href="#" id="openWhyTop">❓ 为什么不是更便宜 (防封必读)</a>
+    <div class="secondary-actions">
+        <a class="btn-soft btn-soft-green" id="btnContactSupport">
+            💬 联系人工客服
+        </a>
+        <a class="btn-soft btn-soft-gold" id="btnOpenWhy">
+            ❓ 价格说明
+        </a>
     </div>
 
     <div style="text-align: center; margin: 10px 0 10px; font-size: 0.85rem; opacity: 0.8;">
@@ -341,7 +352,6 @@
     <span class="sf-text">客服微信:<span class="sf-wx-id" id="footerWxId">mmzi0723</span></span>
     <button class="sf-btn" id="footerCopyBtn">复制微信</button>
 </div>
-
 
 <div class="rs-mask" id="rechargeSystemModal" aria-hidden="true">
   <div class="rs-card" role="dialog" aria-labelledby="rsTitle" tabindex="-1">
@@ -467,17 +477,46 @@
       });
     });
 
-    // 3. Why 弹窗逻辑
+    // 3. 统一弹窗逻辑 (Why + Support)
     const whyModal = document.getElementById('whyModal');
-    const openWhyBtn = document.getElementById('openWhyTop');
+    const btnContactSupport = document.getElementById('btnContactSupport');
+    const btnOpenWhy = document.getElementById('btnOpenWhy');
     const whyClose = document.getElementById('whyClose');
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabPanels = document.querySelectorAll('.tab-panel');
+    const whyTitle = document.getElementById('whyTitle');
 
-    openWhyBtn?.addEventListener('click', (e) => {
-      e.preventDefault();
+    // 通用打开弹窗并切换Tab函数
+    function openModalWithTab(tabName) {
       whyModal.classList.add('show');
       document.body.classList.add('modal-open');
+      
+      // 切换Tab
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabPanels.forEach(p => p.classList.remove('active'));
+      
+      const targetBtn = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
+      const targetPanel = document.getElementById(`tab-${tabName}`);
+      
+      if(targetBtn && targetPanel) {
+          targetBtn.classList.add('active');
+          targetPanel.classList.add('active');
+      }
+
+      // 根据Tab修改标题，体验更好
+      if(tabName === 'support') whyTitle.textContent = '联系人工客服';
+      else if(tabName === 'price') whyTitle.textContent = '为什么不是更便宜';
+    }
+
+    // 绑定事件
+    btnContactSupport?.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModalWithTab('support');
+    });
+
+    btnOpenWhy?.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModalWithTab('price');
     });
 
     function closeWhyModal() {
@@ -489,6 +528,7 @@
       if(e.target === whyModal) closeWhyModal();
     });
 
+    // Tab内部切换
     tabBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         tabBtns.forEach(b => b.classList.remove('active'));
@@ -496,16 +536,21 @@
         btn.classList.add('active');
         const targetId = `tab-${btn.getAttribute('data-tab')}`;
         document.getElementById(targetId)?.classList.add('active');
+        
+        // 切换标题
+        const tabName = btn.getAttribute('data-tab');
+        if(tabName === 'support') whyTitle.textContent = '联系人工客服';
+        else whyTitle.textContent = '为什么不是更便宜';
       });
     });
 
-    // 4. 复制微信逻辑 (通用)
+    // 4. 复制微信逻辑
     function copyWx(id, btn) {
         const text = document.getElementById(id).textContent;
         navigator.clipboard.writeText(text).then(() => {
             const originalText = btn.textContent;
             btn.textContent = '已复制';
-            btn.style.backgroundColor = '#059669'; // 深绿色反馈
+            btn.style.backgroundColor = '#059669'; 
             setTimeout(() => {
                 btn.textContent = originalText;
                 btn.style.backgroundColor = ''; 
@@ -515,12 +560,10 @@
         });
     }
 
-    // 底部悬浮条复制
     document.getElementById('footerCopyBtn')?.addEventListener('click', function() {
         copyWx('footerWxId', this);
     });
     
-    // 弹窗内复制
     document.getElementById('modalCopyWx')?.addEventListener('click', function() {
         copyWx('wxId', this);
     });
