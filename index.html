@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
   <meta content="提供专业的ChatGPT Plus账号升级服务，独家防封技术，人工客服全天在线，售后无忧。" name="description"/>
-  <title>GPlus 账号服务站 - GPT4 正规代充与防封指南</title>
+  <title>GPT Plus 账号服务站 - GPT5 正规代充与防封指南</title>
   
   <script>
   var _hmt = _hmt || [];
@@ -18,6 +18,7 @@
 
   <style>
     :root {
+      /* 原始蓝色系定义 */
       --primary: #3b82f6;      
       --primary-dark: #2563eb; 
       --accent: #60a5fa;       
@@ -25,15 +26,22 @@
       --gray-500: #64748b;
       --radius: 22px;
 
-      /* 品牌色 */
+      /* 品牌色扩展 (适配新功能) */
       --brand-500:#3b82f6; 
       --brand-600:#2563eb; 
       --brand-glass: rgba(59, 130, 246, 0.18);
       --brand-outline: rgba(96,165,250,.45);
+      --brand-outline-strong: rgba(96,165,250,.65);
+      --brand-tint: rgba(96,165,250, 0.12);
+      --brand-tint-strong: rgba(96,165,250, 0.22);
+      
       --surface-glass: rgba(255,255,255,.10);
       --white-85: rgba(255,255,255,.85);
       --text-strong:#ffffff;
       --text-muted: rgba(255,255,255,.78);
+      
+      /* 深色遮罩背景 */
+      --overlay: #0f172a; 
     }
 
     * { box-sizing: border-box; }
@@ -50,6 +58,9 @@
       justify-content: center;
       color: #fff;
     }
+    
+    /* 弹窗打开时禁止滚动 */
+    body.modal-open { overflow: hidden; }
 
     /* 卡片主体 */
     .card {
@@ -87,12 +98,29 @@
       background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 100%);
       border: none; border-radius: 14px; cursor: pointer;
       box-shadow: 0 6px 14px rgba(37,99,235,.2);
+      transition: transform 0.15s, filter 0.2s;
     }
+    .btn-buy:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    
     .btn-recharge {
       flex: 1; padding: 14px 0; font-size: 1rem; font-weight: 700; color: #fff;
       background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.25);
       border-radius: 12px; cursor: pointer;
+      transition: all 0.2s;
     }
+    .btn-recharge:hover { background: rgba(255,255,255,.15); }
+
+    /* “为什么不是更便宜” 链接样式 */
+    #openWhyTop {
+      display: inline-block;
+      margin-top: 10px;
+      color: #93c5fd; /* 浅蓝色 */
+      text-decoration: underline;
+      font-size: 0.9rem;
+      cursor: pointer;
+      opacity: 0.9;
+    }
+    #openWhyTop:hover { color: #fff; opacity: 1; }
 
     /* 说明列表 */
     .buy-notes { list-style: none; padding: 0; margin: 12px auto; max-width: 360px; text-align: left; }
@@ -106,9 +134,92 @@
         border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 2px; transition: all 0.2s;
     }
     .footer-link:hover { color: #fff; border-color: #fff; }
+
+    /* ========================================= */
+    /* 新增 CSS：充值系统选择弹窗 (移植并适配蓝色) */
+    /* ========================================= */
+    .rs-mask, .modal-mask {
+      position:fixed; inset:0; background:rgba(0,0,0,.6); display:none; align-items:center; justify-content:center; z-index:999; padding:16px;
+      backdrop-filter: blur(4px);
+    }
+    .rs-mask.show, .modal-mask.show { display:flex; }
     
-    /* 隐藏区域 */
-    .form-area { display: none; }
+    /* 通用弹窗卡片样式 (蓝色风格) */
+    .rs-card, .modal-card {
+      width: min(520px, 96vw);
+      /* 使用深蓝色背景 */
+      background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+      color: #e6f7fb;
+      border: 1px solid rgba(59, 130, 246, 0.4); /* 蓝色描边 */
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      outline: 0;
+      position: relative;
+      padding: 24px;
+    }
+    /* 弹窗关闭按钮 */
+    .rs-close, .modal-close {
+      position: absolute; top: 16px; right: 16px;
+      background: rgba(255,255,255,0.1); color: #fff;
+      border: none; padding: 6px 10px; border-radius: 8px; cursor: pointer;
+    }
+    .rs-title, .modal-card h3 {
+      margin: 0 0 16px; font-size: 1.2rem; font-weight: 800; text-align: center; color: #fff;
+    }
+
+    /* 充值选项样式 */
+    .rs-options { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+    .rs-option {
+      padding: 18px 16px;
+      background: rgba(59, 130, 246, 0.1); /* 浅蓝底 */
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .rs-option:hover {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: rgba(59, 130, 246, 0.6);
+      transform: translateY(-2px);
+    }
+    .rs-option-title { font-weight: 800; margin-bottom: 4px; color: #fff; font-size: 1.05rem; }
+    .rs-option-desc { font-size: 0.85rem; opacity: 0.8; margin-bottom: 8px; color: #dbeafe; }
+    .rs-option-url { font-size: 0.85rem; color: #60a5fa; word-break: break-all; font-weight: 600; }
+    
+    .rs-actions, .modal-footer { display: flex; justify-content: center; margin-top: 16px; gap: 10px; }
+    .rs-btn { all: unset; cursor: pointer; padding: 10px 20px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; }
+    .rs-btn-ghost { border: 1px solid rgba(255,255,255,.4); color: #ccc; }
+    .rs-btn-ghost:hover { color: #fff; border-color: #fff; }
+
+    /* ========================================= */
+    /* 新增 CSS：为什么不是更便宜 (移植并适配蓝色) */
+    /* ========================================= */
+    .modal-card { width: min(600px, 96vw); text-align: left; }
+    .help-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+    .tab-btn {
+      background: transparent; border: none; color: rgba(255,255,255,0.6); 
+      font-weight: 700; cursor: pointer; padding: 8px 12px; border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: rgba(59, 130, 246, 0.2); color: #fff;
+    }
+    .tab-panel { display: none; line-height: 1.6; font-size: 0.95rem; color: #e2e8f0; }
+    .tab-panel.active { display: block; }
+    .tab-panel ul { padding-left: 20px; margin: 10px 0; }
+    .tab-panel li { margin-bottom: 6px; }
+    .hint { font-size: 0.85rem; opacity: 0.7; margin-top: 10px; font-style: italic; }
+
+    .cta-outline {
+      padding: 8px 16px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.9rem;
+      background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 100%); color: #fff;
+      display: inline-block;
+    }
+    .cta-mini {
+      padding: 8px 16px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.9rem;
+      background: transparent; border: 1px solid rgba(255,255,255,0.4); color: #fff;
+    }
 
     /* 移动端适配 */
     @media (max-width: 480px) {
@@ -141,10 +252,13 @@
 
     <div class="button-group">
       <button class="btn-buy" id="buyBtn">🛒 立即购买 (¥188)</button>
+      
       <button class="btn-recharge" id="rechargeBtn">💳 进入自动充值系统</button>
     </div>
 
-    <div style="text-align: center; margin: 10px 0; font-size: 0.85rem; opacity: 0.8;">
+    <a href="#" id="openWhyTop">为什么不是更便宜</a>
+
+    <div style="text-align: center; margin: 15px 0 10px; font-size: 0.85rem; opacity: 0.8;">
       ⚠ 警惕低价黑卡，避免封号风险
     </div>
 
@@ -169,15 +283,186 @@
   </footer>
 </main>
 
+<div class="rs-mask" id="rechargeSystemModal" aria-hidden="true">
+  <div class="rs-card" role="dialog" aria-labelledby="rsTitle" tabindex="-1">
+    <button class="rs-close" id="rsClose" aria-label="关闭">×</button>
+    <h3 class="rs-title" id="rsTitle">选择充值网站激活</h3>
+
+    <div class="rs-body">
+      <p style="text-align: center; margin-bottom: 20px; font-size: 0.9rem; opacity: 0.9;">
+        请根据您购买的卡密类型选择对应的激活网站
+      </p>
+      
+      <div class="rs-options">
+        <div class="rs-option" data-url="https://www.ow800.com/topup">
+          <div class="rs-option-title">自动充值 1</div>
+          <div class="rs-option-desc">适用于 OW800 卡密</div>
+          <div class="rs-option-url">ow800.com/topup</div>
+        </div>
+        <div class="rs-option" data-url="https://czgpt.plus/">
+          <div class="rs-option-title">自动充值 2</div>
+          <div class="rs-option-desc">适用于 Plus 卡密</div>
+          <div class="rs-option-url">czgpt.plus</div>
+        </div>
+      </div>
+      
+      <div class="rs-actions">
+        <button class="rs-btn rs-btn-ghost" id="rsCancel">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-mask" id="whyModal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-labelledby="whyTitle" tabindex="-1">
+    <button class="modal-close" id="whyClose" aria-label="关闭">×</button>
+    <h3 id="whyTitle">为什么不是更便宜</h3>
+
+    <nav class="help-tabs" role="tablist">
+      <button role="tab" class="tab-btn active" data-tab="price">价格构成</button>
+      <button role="tab" class="tab-btn" data-tab="flow">充值流程</button>
+      <button role="tab" class="tab-btn" data-tab="support">客服微信</button>
+    </nav>
+
+    <section id="tab-price" class="tab-panel active">
+      <p>官方订阅价 <strong>19.99 美元</strong>（含税约 ¥150+）。</p>
+      <ul>
+        <li>🍎 苹果通道与支付手续费</li>
+        <li>🔒 账号维护与风控成本（避免黑卡、降低封号风险）</li>
+        <li>👩‍💻 人工客服与售后保障</li>
+      </ul>
+      <p>综合以上成本，本站价格为 <strong>¥188</strong>。我们承诺走正规通道，拒绝低价黑卡。</p>
+      <div class="modal-footer">
+        <a href="#" class="cta-outline modal-buy-link">去购买</a>
+      </div>
+    </section>
+
+    <section id="tab-flow" class="tab-panel">
+      <ul style="list-style: none; padding-left: 10px;">
+        <li>① 点击“立即购买”下单获取卡密</li>
+        <li>② 点击“自动充值系统”进行激活</li>
+        <li>③ 无需提供密码，约 5 分钟到账</li>
+      </ul>
+      <p class="hint">提示：若遇到账延迟，请先勿重复下单，联系人工处理。</p>
+      <div class="modal-footer">
+        <a href="#" class="cta-outline modal-buy-link">去购买</a>
+      </div>
+    </section>
+
+    <section id="tab-support" class="tab-panel">
+      <p>微信：<strong id="wxId">Jiage01888</strong></p>
+      <p class="hint">人工在线：9:00–24:00（其他时段尽量回复）</p>
+      <div class="modal-footer">
+        <button class="cta-mini" id="modalCopyWx">复制微信号</button>
+      </div>
+    </section>
+  </div>
+</div>
+
 <script>
-    // 购买按钮跳转
-    document.getElementById('buyBtn')?.addEventListener('click', function () {
-      window.open('https://fe.dtyuedan.cn/shop/jiage', '_blank', 'noopener');
+    // 定义统一的购买链接
+    const BUY_URL = 'https://fe.dtyuedan.cn/shop/LID4JG73';
+
+    // 1. 购买按钮逻辑
+    function openBuy() {
+      window.open(BUY_URL, '_blank', 'noopener');
+    }
+    
+    document.getElementById('buyBtn')?.addEventListener('click', openBuy);
+    
+    // 同时也给弹窗里的购买按钮绑定事件
+    document.querySelectorAll('.modal-buy-link').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openBuy();
+      });
     });
 
-    // 充值按钮跳转
-    document.getElementById('rechargeBtn')?.addEventListener('click', function () {
-       window.open('https://www.ow800.com', '_blank', 'noopener');
+    // 2. 充值弹窗逻辑
+    const rechargeModal = document.getElementById('rechargeSystemModal');
+    const rechargeBtn = document.getElementById('rechargeBtn');
+    const rsClose = document.getElementById('rsClose');
+    const rsCancel = document.getElementById('rsCancel');
+    
+    // 打开充值弹窗
+    rechargeBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      rechargeModal.classList.add('show');
+      document.body.classList.add('modal-open');
+    });
+
+    // 关闭充值弹窗函数
+    function closeRechargeModal() {
+      rechargeModal.classList.remove('show');
+      document.body.classList.remove('modal-open');
+    }
+    rsClose?.addEventListener('click', closeRechargeModal);
+    rsCancel?.addEventListener('click', closeRechargeModal);
+    rechargeModal?.addEventListener('click', (e) => {
+      if(e.target === rechargeModal) closeRechargeModal();
+    });
+
+    // 点击充值选项跳转
+    document.querySelectorAll('.rs-option').forEach(option => {
+      option.addEventListener('click', () => {
+        const url = option.getAttribute('data-url');
+        if(url) {
+          window.open(url, '_blank', 'noopener');
+          closeRechargeModal();
+        }
+      });
+    });
+
+    // 3. “为什么不是更便宜”弹窗逻辑
+    const whyModal = document.getElementById('whyModal');
+    const openWhyBtn = document.getElementById('openWhyTop');
+    const whyClose = document.getElementById('whyClose');
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    // 打开Why弹窗
+    openWhyBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      whyModal.classList.add('show');
+      document.body.classList.add('modal-open');
+    });
+
+    // 关闭Why弹窗
+    function closeWhyModal() {
+      whyModal.classList.remove('show');
+      document.body.classList.remove('modal-open');
+    }
+    whyClose?.addEventListener('click', closeWhyModal);
+    whyModal?.addEventListener('click', (e) => {
+      if(e.target === whyModal) closeWhyModal();
+    });
+
+    // Tab切换逻辑
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // 移除所有激活状态
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabPanels.forEach(p => p.classList.remove('active'));
+        
+        // 激活当前
+        btn.classList.add('active');
+        const targetId = `tab-${btn.getAttribute('data-tab')}`;
+        document.getElementById(targetId)?.classList.add('active');
+      });
+    });
+
+    // 复制微信逻辑
+    document.getElementById('modalCopyWx')?.addEventListener('click', function() {
+      const wxText = document.getElementById('wxId').textContent;
+      navigator.clipboard.writeText(wxText).then(() => {
+        const originalText = this.textContent;
+        this.textContent = '已复制';
+        setTimeout(() => {
+          this.textContent = originalText;
+        }, 1500);
+      }).catch(() => {
+        alert('请手动复制微信：' + wxText);
+      });
     });
 </script>
 
