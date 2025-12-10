@@ -25,20 +25,6 @@
       --gray-300: #cbd5e1;     
       --gray-500: #64748b;
       --radius: 22px;
-
-      /* 品牌色扩展 (适配新功能) */
-      --brand-500:#3b82f6; 
-      --brand-600:#2563eb; 
-      --brand-glass: rgba(59, 130, 246, 0.18);
-      --brand-outline: rgba(96,165,250,.45);
-      --brand-outline-strong: rgba(96,165,250,.65);
-      --brand-tint: rgba(96,165,250, 0.12);
-      --brand-tint-strong: rgba(96,165,250, 0.22);
-      
-      --surface-glass: rgba(255,255,255,.10);
-      --white-85: rgba(255,255,255,.85);
-      --text-strong:#ffffff;
-      --text-muted: rgba(255,255,255,.78);
       
       /* 深色遮罩背景 */
       --overlay: #0f172a; 
@@ -48,6 +34,8 @@
 
     body {
       margin: 0;
+      /* 给底部留出空间，防止内容被悬浮条遮挡 */
+      padding-bottom: 80px;
       font-family: system-ui, -apple-system, sans-serif;
       background:
         radial-gradient(260px 180px at 18% 22%, rgba(255,255,255,.10), transparent 70%),
@@ -72,6 +60,8 @@
       border: 1px solid rgba(255,255,255,.35);
       position: relative;
       overflow: hidden;
+      /* 确保卡片在小屏幕上不贴边 */
+      margin: 20px;
     }
 
     .card-header { padding: 48px 40px 32px; text-align: center; }
@@ -91,8 +81,8 @@
     .price-val { font-size: 2.4rem; font-weight: 900; line-height: 1; }
     .price-tag { font-size: 0.8rem; font-weight: 600; padding: 4px 10px; border-radius: 99px; background: rgba(233,196,106,.16); border: 1px solid var(--surface-glass); }
 
-    /* 按钮 */
-    .button-group { display: flex; gap: 12px; margin: 22px 0 8px; }
+    /* 按钮组 */
+    .button-group { display: flex; gap: 12px; margin: 22px 0 16px; }
     .btn-buy {
       flex: 1.2; padding: 18px 0; font-size: 1.12rem; font-weight: 800; color: #fff;
       background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 100%);
@@ -110,17 +100,43 @@
     }
     .btn-recharge:hover { background: rgba(255,255,255,.15); }
 
-    /* “为什么不是更便宜” 链接样式 */
-    #openWhyTop {
-      display: inline-block;
-      margin-top: 10px;
-      color: #93c5fd; /* 浅蓝色 */
-      text-decoration: underline;
-      font-size: 0.9rem;
-      cursor: pointer;
-      opacity: 0.9;
+    /* ========================================= */
+    /* 修改点 1：醒目的“为什么不是更便宜”按钮样式 */
+    /* ========================================= */
+    .btn-why-wrapper {
+        text-align: center;
+        margin-top: 12px;
+        margin-bottom: 20px;
     }
-    #openWhyTop:hover { color: #fff; opacity: 1; }
+    #openWhyTop {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 24px;
+      color: #fcd34d; /* 亮金色 */
+      background: rgba(252, 211, 77, 0.1);
+      border: 1px solid rgba(252, 211, 77, 0.4);
+      border-radius: 99px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    #openWhyTop:hover {
+        background: rgba(252, 211, 77, 0.2);
+        transform: scale(1.02);
+        box-shadow: 0 4px 12px rgba(252, 211, 77, 0.15);
+    }
+    /* 闪烁动画，增加吸引力 */
+    @keyframes pulse-gold {
+        0% { box-shadow: 0 0 0 0 rgba(252, 211, 77, 0.4); }
+        70% { box-shadow: 0 0 0 6px rgba(252, 211, 77, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(252, 211, 77, 0); }
+    }
+    #openWhyTop { animation: pulse-gold 3s infinite; }
+
 
     /* 说明列表 */
     .buy-notes { list-style: none; padding: 0; margin: 12px auto; max-width: 360px; text-align: left; }
@@ -136,28 +152,68 @@
     .footer-link:hover { color: #fff; border-color: #fff; }
 
     /* ========================================= */
-    /* 新增 CSS：充值系统选择弹窗 (移植并适配蓝色) */
+    /* 修改点 2：底部悬浮客服条 Sticky Footer */
     /* ========================================= */
+    .sticky-footer {
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        background: rgba(15, 23, 42, 0.95); /* 深蓝底 */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        z-index: 100;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+        animation: slideUp 0.6s ease-out;
+    }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+    .sf-text { font-size: 0.95rem; color: #fff; }
+    .sf-wx-id { 
+        font-family: monospace; 
+        font-weight: 700; 
+        color: #fcd34d; /* 金色字体 */
+        background: rgba(255,255,255,0.1);
+        padding: 2px 6px;
+        border-radius: 4px;
+        margin-left: 4px;
+    }
+    .sf-btn {
+        background: #10b981; /* 微信绿 */
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        transition: transform 0.1s;
+    }
+    .sf-btn:active { transform: scale(0.95); }
+
+    /* 弹窗通用样式 */
     .rs-mask, .modal-mask {
-      position:fixed; inset:0; background:rgba(0,0,0,.6); display:none; align-items:center; justify-content:center; z-index:999; padding:16px;
+      position:fixed; inset:0; background:rgba(0,0,0,.7); display:none; align-items:center; justify-content:center; z-index:999; padding:16px;
       backdrop-filter: blur(4px);
     }
     .rs-mask.show, .modal-mask.show { display:flex; }
     
-    /* 通用弹窗卡片样式 (蓝色风格) */
     .rs-card, .modal-card {
       width: min(520px, 96vw);
-      /* 使用深蓝色背景 */
       background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
       color: #e6f7fb;
-      border: 1px solid rgba(59, 130, 246, 0.4); /* 蓝色描边 */
+      border: 1px solid rgba(59, 130, 246, 0.4);
       border-radius: 16px;
       box-shadow: 0 20px 60px rgba(0,0,0,.5);
       outline: 0;
       position: relative;
       padding: 24px;
     }
-    /* 弹窗关闭按钮 */
     .rs-close, .modal-close {
       position: absolute; top: 16px; right: 16px;
       background: rgba(255,255,255,0.1); color: #fff;
@@ -167,11 +223,10 @@
       margin: 0 0 16px; font-size: 1.2rem; font-weight: 800; text-align: center; color: #fff;
     }
 
-    /* 充值选项样式 */
     .rs-options { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
     .rs-option {
       padding: 18px 16px;
-      background: rgba(59, 130, 246, 0.1); /* 浅蓝底 */
+      background: rgba(59, 130, 246, 0.1);
       border: 1px solid rgba(59, 130, 246, 0.3);
       border-radius: 12px;
       cursor: pointer;
@@ -192,9 +247,7 @@
     .rs-btn-ghost { border: 1px solid rgba(255,255,255,.4); color: #ccc; }
     .rs-btn-ghost:hover { color: #fff; border-color: #fff; }
 
-    /* ========================================= */
-    /* 新增 CSS：为什么不是更便宜 (移植并适配蓝色) */
-    /* ========================================= */
+    /* Why 弹窗 */
     .modal-card { width: min(600px, 96vw); text-align: left; }
     .help-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
     .tab-btn {
@@ -202,9 +255,7 @@
       font-weight: 700; cursor: pointer; padding: 8px 12px; border-radius: 8px;
       transition: all 0.2s;
     }
-    .tab-btn.active {
-      background: rgba(59, 130, 246, 0.2); color: #fff;
-    }
+    .tab-btn.active { background: rgba(59, 130, 246, 0.2); color: #fff; }
     .tab-panel { display: none; line-height: 1.6; font-size: 0.95rem; color: #e2e8f0; }
     .tab-panel.active { display: block; }
     .tab-panel ul { padding-left: 20px; margin: 10px 0; }
@@ -225,6 +276,8 @@
     @media (max-width: 480px) {
       .card-header { padding: 40px 24px 24px; }
       .button-group { flex-direction: column; }
+      .sf-text { font-size: 0.85rem; }
+      .sf-btn { padding: 6px 12px; font-size: 0.85rem; }
     }
   </style>
 </head>
@@ -252,13 +305,14 @@
 
     <div class="button-group">
       <button class="btn-buy" id="buyBtn">🛒 立即购买 (¥188)</button>
-      
       <button class="btn-recharge" id="rechargeBtn">💳 进入自动充值系统</button>
     </div>
 
-    <a href="#" id="openWhyTop">为什么不是更便宜</a>
+    <div class="btn-why-wrapper">
+        <a href="#" id="openWhyTop">❓ 为什么不是更便宜 (防封必读)</a>
+    </div>
 
-    <div style="text-align: center; margin: 15px 0 10px; font-size: 0.85rem; opacity: 0.8;">
+    <div style="text-align: center; margin: 10px 0 10px; font-size: 0.85rem; opacity: 0.8;">
       ⚠ 警惕低价黑卡，避免封号风险
     </div>
 
@@ -282,6 +336,12 @@
     </a>
   </footer>
 </main>
+
+<div class="sticky-footer">
+    <span class="sf-text">客服微信:<span class="sf-wx-id" id="footerWxId">mmzi0723</span></span>
+    <button class="sf-btn" id="footerCopyBtn">复制微信</button>
+</div>
+
 
 <div class="rs-mask" id="rechargeSystemModal" aria-hidden="true">
   <div class="rs-card" role="dialog" aria-labelledby="rsTitle" tabindex="-1">
@@ -367,10 +427,7 @@
     function openBuy() {
       window.open(BUY_URL, '_blank', 'noopener');
     }
-    
     document.getElementById('buyBtn')?.addEventListener('click', openBuy);
-    
-    // 同时也给弹窗里的购买按钮绑定事件
     document.querySelectorAll('.modal-buy-link').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -384,14 +441,12 @@
     const rsClose = document.getElementById('rsClose');
     const rsCancel = document.getElementById('rsCancel');
     
-    // 打开充值弹窗
     rechargeBtn?.addEventListener('click', (e) => {
       e.preventDefault();
       rechargeModal.classList.add('show');
       document.body.classList.add('modal-open');
     });
 
-    // 关闭充值弹窗函数
     function closeRechargeModal() {
       rechargeModal.classList.remove('show');
       document.body.classList.remove('modal-open');
@@ -402,7 +457,6 @@
       if(e.target === rechargeModal) closeRechargeModal();
     });
 
-    // 点击充值选项跳转
     document.querySelectorAll('.rs-option').forEach(option => {
       option.addEventListener('click', () => {
         const url = option.getAttribute('data-url');
@@ -413,21 +467,19 @@
       });
     });
 
-    // 3. “为什么不是更便宜”弹窗逻辑
+    // 3. Why 弹窗逻辑
     const whyModal = document.getElementById('whyModal');
     const openWhyBtn = document.getElementById('openWhyTop');
     const whyClose = document.getElementById('whyClose');
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabPanels = document.querySelectorAll('.tab-panel');
 
-    // 打开Why弹窗
     openWhyBtn?.addEventListener('click', (e) => {
       e.preventDefault();
       whyModal.classList.add('show');
       document.body.classList.add('modal-open');
     });
 
-    // 关闭Why弹窗
     function closeWhyModal() {
       whyModal.classList.remove('show');
       document.body.classList.remove('modal-open');
@@ -437,33 +489,40 @@
       if(e.target === whyModal) closeWhyModal();
     });
 
-    // Tab切换逻辑
     tabBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        // 移除所有激活状态
         tabBtns.forEach(b => b.classList.remove('active'));
         tabPanels.forEach(p => p.classList.remove('active'));
-        
-        // 激活当前
         btn.classList.add('active');
         const targetId = `tab-${btn.getAttribute('data-tab')}`;
         document.getElementById(targetId)?.classList.add('active');
       });
     });
 
-    // 复制微信逻辑
+    // 4. 复制微信逻辑 (通用)
+    function copyWx(id, btn) {
+        const text = document.getElementById(id).textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            const originalText = btn.textContent;
+            btn.textContent = '已复制';
+            btn.style.backgroundColor = '#059669'; // 深绿色反馈
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.backgroundColor = ''; 
+            }, 1500);
+        }).catch(() => {
+            alert('请手动复制微信：' + text);
+        });
+    }
+
+    // 底部悬浮条复制
+    document.getElementById('footerCopyBtn')?.addEventListener('click', function() {
+        copyWx('footerWxId', this);
+    });
+    
+    // 弹窗内复制
     document.getElementById('modalCopyWx')?.addEventListener('click', function() {
-      // 脚本会自动获取 id="wxId" 元素中的内容，即 mmzi0723
-      const wxText = document.getElementById('wxId').textContent;
-      navigator.clipboard.writeText(wxText).then(() => {
-        const originalText = this.textContent;
-        this.textContent = '已复制';
-        setTimeout(() => {
-          this.textContent = originalText;
-        }, 1500);
-      }).catch(() => {
-        alert('请手动复制微信：' + wxText);
-      });
+        copyWx('wxId', this);
     });
 </script>
 
